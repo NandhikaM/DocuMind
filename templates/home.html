@@ -9,8 +9,8 @@
     <a href="/upload">Upload Documents</a>
     {% if documents %}
     <ul>
-        {% for doc in documents %}
-        <li>{{ doc }}</li>
+        {% for document in documents %}
+        <li>{{ document.filename }} — {{ document.upload_date }}</li>
         {% endfor %}
     </ul>
     {% else %}

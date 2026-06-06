@@ -21,7 +21,7 @@ class Document(db.Model):
 
 @app.route("/")
 def index():
-    documents = os.listdir(app.config["UPLOAD_FOLDER"])
+    documents = Document.query.all()
     return render_template("home.html", documents=documents)
 
 
