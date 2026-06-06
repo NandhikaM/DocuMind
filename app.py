@@ -33,6 +33,9 @@ def upload():
         if file.filename:
             filepath = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
             file.save(filepath)
+            document = Document(filename=file.filename, filepath=filepath)
+            db.session.add(document)
+            db.session.commit()
         return redirect("/")
     return render_template("upload.html")
 
