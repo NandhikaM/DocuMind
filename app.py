@@ -1,10 +1,22 @@
 import os
+from datetime import datetime
 
 from flask import Flask, redirect, render_template, request
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 UPLOAD_FOLDER = "uploads"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///documind.db"
+
+db = SQLAlchemy(app)
+
+
+class Document(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String, nullable=False)
+    filepath = db.Column(db.String, nullable=False)
+    upload_date = db.Column(db.DateTime, default=datetime.utcnow)
 
 
 @app.route("/")
@@ -24,6 +36,9 @@ def upload():
         return redirect("/")
     return render_template("upload.html")
 
+
+with app.app_context():
+    db.create_all()
 
 if __name__ == "__main__":
     app.run()
