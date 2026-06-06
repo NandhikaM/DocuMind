@@ -7,5 +7,14 @@
 <body>
     <h1>Welcome to DocuMind</h1>
     <a href="/upload">Upload Documents</a>
+    {% if documents %}
+    <ul>
+        {% for doc in documents %}
+        <li>{{ doc }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No documents uploaded yet.</p>
+    {% endif %}
 </body>
 </html>
